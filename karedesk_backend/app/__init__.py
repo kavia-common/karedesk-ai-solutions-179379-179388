@@ -3,6 +3,7 @@ from flask_cors import CORS
 from .routes.health import blp
 from flask_smorest import Api
 from .config import get_config
+from .db import create_all_tables  # Import DB helper to optionally create tables
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -27,3 +28,11 @@ app.config["DB_ECHO"] = _app_cfg.database.echo
 # Initialize API and register blueprints
 api = Api(app)
 api.register_blueprint(blp)
+
+# Ensure DB tables exist if migrations are not configured
+try:
+    create_all_tables(app)
+except Exception as exc:
+    # Do not crash app startup in environments without DB; log minimal info.
+    # In production, proper logging should be configured.
+    print(f"[DB] Skipping automatic create_all due to error: {exc}")
