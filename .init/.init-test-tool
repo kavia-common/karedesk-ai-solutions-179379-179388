@@ -1,0 +1,4 @@
+{
+    "command": "pytest",
+    "working_directory": "/home/kavia/workspace/code-generation/karedesk-ai-solutions-179379-179388/karedesk_backend"
+}
