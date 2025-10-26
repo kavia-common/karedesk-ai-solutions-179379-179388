@@ -3,6 +3,7 @@ from flask_cors import CORS
 from .routes.health import blp as health_blp
 from .routes.users import blp as users_blp
 from .routes.projects import blp as projects_blp
+from .routes.support import blp as support_blp
 from flask_smorest import Api
 from .config import get_config
 from .db import create_all_tables  # Import DB helper to optionally create tables
@@ -32,6 +33,7 @@ api = Api(app)
 api.register_blueprint(health_blp)
 api.register_blueprint(users_blp)
 api.register_blueprint(projects_blp)
+api.register_blueprint(support_blp)
 
 # Ensure DB tables exist if migrations are not configured
 try:
